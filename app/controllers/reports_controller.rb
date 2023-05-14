@@ -49,7 +49,7 @@ class ReportsController < ApplicationController
     if @report.user != current_user
       redirect_to new_report_path
     else
-      @report.destroy
+      @report.destroy!
     end
 
     redirect_to reports_url, notice: t('controllers.common.notice_destroy', name: Report.model_name.human)
