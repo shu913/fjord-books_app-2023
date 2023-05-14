@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
     if @comment.update(comment_params)
       redirect_to @commentable, notice: t('controllers.common.notice_update', name: Comment.model_name.human)
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
