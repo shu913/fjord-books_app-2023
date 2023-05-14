@@ -3,22 +3,20 @@
   <% if comments.any? %>
     <ul>
       <% comments.each do |comment| %>
-        <% if comment.persisted? %>
-          <li>
-            <%= comment.user.name %> -
-            <strong><%= Comment.human_attribute_name(:created_at) %>:</strong>
-            <%= l comment.created_at, format: :short %>
+        <li>
+          <%= comment.user.name %> -
+          <strong><%= Comment.human_attribute_name(:created_at) %>:</strong>
+          <%= l comment.created_at, format: :short %>
 
-            <br />
+          <br />
 
-            <%= comment.content %>
+          <%= comment.content %>
 
-            <% if current_user == comment.user %>
-              <p><%= link_to t('views.common.edit', name: Comment.model_name.human.downcase), edit_polymorphic_path([commentable, comment]) %></p>
-              <%= button_to t('views.common.destroy', name: Comment.model_name.human.downcase), polymorphic_path([commentable, comment]), method: :delete %>
-            <% end %>
-          </li>
-        <% end %>
+          <% if current_user == comment.user %>
+            <p><%= link_to t('views.common.edit', name: Comment.model_name.human.downcase), edit_polymorphic_path([commentable, comment]) %></p>
+            <%= button_to t('views.common.destroy', name: Comment.model_name.human.downcase), polymorphic_path([commentable, comment]), method: :delete %>
+          <% end %>
+        </li>
       <% end %>
     </ul>
   <% else %>
