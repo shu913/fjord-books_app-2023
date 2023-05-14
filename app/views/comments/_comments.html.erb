@@ -1,0 +1,25 @@
+<div class="comments-container">
+  <strong><%= Comment.model_name.human %>:</strong>
+  <% if comments.any? %>
+    <ul>
+      <% comments.each do |comment| %>
+        <li>
+          <%= comment.user.name %> -
+          <strong><%= Comment.human_attribute_name(:created_at) %>:</strong>
+          <%= l comment.created_at, format: :short %>
+
+          <br />
+
+          <%= comment.content %>
+
+          <% if current_user == comment.user %>
+            <p><%= link_to t('views.common.edit', name: Comment.model_name.human.downcase), edit_polymorphic_path([commentable, comment]) %></p>
+            <%= button_to t('views.common.destroy', name: Comment.model_name.human.downcase), polymorphic_path([commentable, comment]), method: :delete %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <%= t('views.common.none', name: Comment.model_name.human) %>
+  <% end %>
+</div>
